@@ -1,0 +1,68 @@
+Index: src/include/linux/qed/qed_if.h
+===================================================================
+--- src.orig/include/linux/qed/qed_if.h	2017-12-01 12:57:21.776057802 +0100
++++ src/include/linux/qed/qed_if.h	2017-12-01 12:57:21.798057508 +0100
+@@ -263,6 +263,8 @@
+ 	 * the doorbell BAR).
+ 	 */
+ 	u32 min_dpis;		/* number of requested DPIs */
++	/* We need this one in order to preserve ABI */
++	u32 num_mrs;		/* number of requested memory regions */
+ 	u32 num_qps;		/* number of requested Queue Pairs */
+ 	u32 num_srqs;		/* number of requested SRQ */
+ 	u8 roce_edpm_mode;	/* see QED_ROCE_EDPM_MODE_ENABLE */
+Index: src/drivers/net/ethernet/qlogic/qed/qed.h
+===================================================================
+--- src.orig/drivers/net/ethernet/qlogic/qed/qed.h	2017-12-01 12:57:21.686059004 +0100
++++ src/drivers/net/ethernet/qlogic/qed/qed.h	2017-12-01 12:57:21.799057495 +0100
+@@ -251,6 +251,9 @@
+ 				 RESC_NUM(_p_hwfn, resc))
+ #define FEAT_NUM(_p_hwfn, resc) ((_p_hwfn)->hw_info.feat_num[resc])
+ 
++#ifdef __GENKSYMS__
++	u8				num_tc;
++#else /* !defined(__GENKSYMS__) */
+ 	/* Amount of traffic classes HW supports */
+ 	u8 num_hw_tc;
+ 
+@@ -258,7 +261,11 @@
+ 	 * layer driver configuration.
+ 	 */
+ 	u8 num_active_tc;
++#endif /* !defined(__GENKSYMS__) */
+ 	u8				offload_tc;
++#ifdef __GENKSYMS__
++	u8				non_offload_tc;
++#endif /* defined(__GENKSYMS__) */
+ 
+ 	u32				concrete_fid;
+ 	u16				opaque_fid;
+@@ -321,6 +328,13 @@
+ 	struct init_qm_port_params	*qm_port_params;
+ 	u16				start_pq;
+ 	u8				start_vport;
++#ifdef __GENKSYMS__
++	u8				pure_lb_pq;
++	u8				offload_pq;
++	u8				pure_ack_pq;
++	u8 ooo_pq;
++	u8				vf_queues_offset;
++#else /* !defined(__GENKSYMS__) */
+ 	u16				 pure_lb_pq;
+ 	u16				offload_pq;
+ 	u16				low_latency_pq;
+@@ -329,11 +343,14 @@
+ 	u16				first_vf_pq;
+ 	u16				first_mcos_pq;
+ 	u16				first_rl_pq;
++#endif /* defined(__GENKSYMS__) */
+ 	u16				num_pqs;
+ 	u16				num_vf_pqs;
+ 	u8				num_vports;
+ 	u8				max_phys_tcs_per_port;
++#ifndef __GENKSYMS__
+ 	u8				ooo_tc;
++#endif /* !defined(__GENKSYMS__) */
+ 	bool				pf_rl_en;
+ 	bool				pf_wfq_en;
+ 	bool				vport_rl_en;
