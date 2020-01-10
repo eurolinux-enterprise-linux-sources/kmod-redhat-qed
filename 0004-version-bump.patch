@@ -1,0 +1,13 @@
+Index: src/drivers/net/ethernet/qlogic/qed/qed.h
+===================================================================
+--- src.orig/drivers/net/ethernet/qlogic/qed/qed.h	2017-04-20 18:34:04.437046836 +0200
++++ src/drivers/net/ethernet/qlogic/qed/qed.h	2017-04-20 18:34:48.483521755 +0200
+@@ -51,7 +51,7 @@
+ #include "qed_hsi.h"
+ 
+ extern const struct qed_common_ops qed_common_ops_pass;
+-#define DRV_MODULE_VERSION "8.10.10.21"
++#define DRV_MODULE_VERSION "8.10.10.21_dup7.3"
+ 
+ #define MAX_HWFNS_PER_DEVICE    (4)
+ #define NAME_SIZE 16
