@@ -1,0 +1,23 @@
+Index: src/drivers/net/ethernet/qlogic/qed/Makefile
+===================================================================
+--- src.orig/drivers/net/ethernet/qlogic/qed/Makefile	2018-08-31 18:52:28.231407097 +0200
++++ src/drivers/net/ethernet/qlogic/qed/Makefile	2018-08-31 18:52:28.287406356 +0200
+@@ -1,3 +1,5 @@
++CONFIG_QED_OOO := y
++
+ obj-$(CONFIG_QED) := qed.o
+ 
+ qed-y := qed_cxt.o qed_dev.o qed_hw.o qed_init_fw_funcs.o qed_init_ops.o \
+Index: src/drivers/net/ethernet/qlogic/qed/qed.h
+===================================================================
+--- src.orig/drivers/net/ethernet/qlogic/qed/qed.h	2018-08-31 18:52:28.159408049 +0200
++++ src/drivers/net/ethernet/qlogic/qed/qed.h	2018-08-31 18:56:43.109034452 +0200
+@@ -33,6 +33,8 @@
+ #ifndef _QED_H
+ #define _QED_H
+ 
++#define CONFIG_QED_OOO 1
++
+ #include <linux/types.h>
+ #include <linux/io.h>
+ #include <linux/delay.h>

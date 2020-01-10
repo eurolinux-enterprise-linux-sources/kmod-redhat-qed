@@ -1,0 +1,32 @@
+Bump kernel module version in order to distinguish from the inbox driver.
+
+Change firmware name as well in order to avoid potential conflict with files
+from linux-firmware package.
+Index: src/drivers/net/ethernet/qlogic/qed/qed.h
+===================================================================
+--- src.orig/drivers/net/ethernet/qlogic/qed/qed.h	2018-08-20 06:37:35.379690068 +0200
++++ src/drivers/net/ethernet/qlogic/qed/qed.h	2018-08-20 06:38:29.538166603 +0200
+@@ -509,7 +509,8 @@
+ 	__stringify(QED_MAJOR_VERSION) "."    \
+ 	__stringify(QED_MINOR_VERSION) "."    \
+ 	__stringify(QED_REVISION_VERSION) "." \
+-	__stringify(QED_ENGINEERING_VERSION)
++	__stringify(QED_ENGINEERING_VERSION)  \
++	"_dup7.6"
+ 
+ struct qed_simd_fp_handler {
+ 	void	*token;
+Index: src/drivers/net/ethernet/qlogic/qed/qed_main.c
+===================================================================
+--- src.orig/drivers/net/ethernet/qlogic/qed/qed_main.c	2018-08-20 06:03:02.469102475 +0200
++++ src/drivers/net/ethernet/qlogic/qed/qed_main.c	2018-08-20 06:52:24.357136409 +0200
+@@ -76,7 +76,8 @@
+ 	__stringify(FW_MAJOR_VERSION) "."	\
+ 	__stringify(FW_MINOR_VERSION) "."	\
+ 	__stringify(FW_REVISION_VERSION) "."	\
+-	__stringify(FW_ENGINEERING_VERSION)
++	__stringify(FW_ENGINEERING_VERSION)	\
++	"_dup7.6"
+ 
+ #define QED_FW_FILE_NAME	\
+ 	"qed/qed_init_values_zipped-" FW_FILE_VERSION ".bin"
